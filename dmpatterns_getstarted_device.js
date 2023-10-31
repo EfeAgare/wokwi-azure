@@ -52,16 +52,6 @@ var onReboot = function (request, response) {
   console.log('Rebooting!');
 };
 
-client.open(function (err) {
-  if (err) {
-    console.error('Could not open IotHub client');
-  } else {
-    console.log('Client opened.  Waiting for reboot method.');
-    client.onDeviceMethod('reboot', onReboot);
-  }
-});
-
-
 var server = http.createServer(function (req, res) {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
   res.end('Hello World!\n');
@@ -70,5 +60,13 @@ var server = http.createServer(function (req, res) {
 // Listen on port 3000
 server.listen(3000, '127.0.0.1', function (req, res) {
   // Schedule the periodic task
+  client.open(function (err) {
+    if (err) {
+      console.error('Could not open IotHub client');
+    } else {
+      console.log('Client opened.  Waiting for reboot method.');
+      client.onDeviceMethod('reboot', onReboot);
+    }
+  });
   console.log('Server running at http://127.0.0.1:3000/');
 });
