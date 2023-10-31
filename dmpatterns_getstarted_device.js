@@ -1,5 +1,6 @@
 'use strict';
 
+var http = require('http');
 var Client = require('azure-iot-device').Client;
 var Protocol = require('azure-iot-device-mqtt').Mqtt;
 
@@ -60,3 +61,14 @@ client.open(function (err) {
   }
 });
 
+
+var server = http.createServer(function (req, res) {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('Hello World!\n');
+});
+
+// Listen on port 3000
+server.listen(3000, '127.0.0.1', function (req, res) {
+  // Schedule the periodic task
+  console.log('Server running at http://127.0.0.1:3000/');
+});

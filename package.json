@@ -10,6 +10,6 @@
     "start": "node dmpatterns_getstarted_device.js"
   },
   "engines": {
-   "node": "18.18.2"
+    "node": "18.18.2"
   }
 }
